@@ -1,1 +1,54 @@
+//Missing in array....
+//Input: arr[] = [1, 2, 3, 5]
+//Output: 4
+Explanation: All the numbers from 1 to 5 are present except 4.
 
+
+three methods to solve this ..........
+
+class Solution {
+  public:
+    int missingNum(vector<int>& arr) {
+//   this is normal approach....
+         int n=arr.size();
+         sort(arr.begin(),arr.end());
+           int i;
+         for(i=0;i<n;i++){
+             if(arr[i]!=i+1){
+             break;
+            }
+        }
+     return i+1; 
+    
+// this is sum approach
+    
+    
+     int n = arr.size() + 1; // because one number is missing
+    long long total = (long long)n * (n + 1) / 2;
+
+    long long sum = 0;
+    for (int num : arr) {
+         sum += num;
+    }
+
+    return total - sum;
+    
+// using xor approach
+  int n = arr.size() + 1;  // Total count from 1 to n
+    int xor1 = 0, xor2 = 0;
+
+    // XOR all numbers from 1 to n
+    for (int i = 1; i <= n; i++) {
+        xor1 ^= i;
+    }
+
+    // XOR all elements in the array
+    for (int num : arr) {
+        xor2 ^= num;
+    }
+
+    // The missing number is the XOR of the two results
+    return xor1 ^ xor2;
+}
+
+};
